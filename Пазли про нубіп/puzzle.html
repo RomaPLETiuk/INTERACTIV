@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Image Puzzle</title>
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/image-puzzle.css" rel="stylesheet" />
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/image-puzzle.js"></script>
+</head>
+<body>
+    
+    <div id="collage">
+        <h2>ПАЗЛИ</h2>
+        <hr />
+        <div id="playPanel" style="padding:5px;display:none;">
+            <h3 id="imgTitle"></h3> <hr />
+            <div style="display:inline-block; margin:auto; width:95%; vertical-align:top;">
+                <ul id="sortable" class="sortable"></ul>
+                <div id="actualImageBox">
+                    <div id="stepBox">
+                        <div>Кроки:</div><div class="stepCount">0</div>
+                    </div>
+                    <div id="timeBox">
+                        ЧАС: <span id="timerPanel"></span> сек.
+                    </div>
+                    <img id="actualImage" />
+                    <div>Переставте, щоб створити подібне зображення.</div>
+                    <p id="levelPanel">
+                        <input type="radio" name="level" id="easy" checked="checked" value="3" /> <label for="easy">Легкий</label>
+                        <input type="radio" name="level" id="medium" value="4" /> <label for="medium">Середній</label>
+                        <input type="radio" name="level" id="hard" value="5" /> <label for="hard">Важкий</label>
+                    </p>
+                    <div>
+                        <button id="btnRule" type="button" class="btn" onclick="rules();">Правила</button>
+                        <button id="newPhoto" type="button" class="btn">Інше фото</button>
+                        <button id="btnReplay" type="button" class="btn" onclick="about();">About</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="gameOver" style="display:none;">
+            <div style="background-color: #27bfd6; padding: 5px 10px 20px 10px; text-align: center; ">
+                <h2 style="text-align:center">Ти Виграв!!!</h2>
+                Наші вітання!! <br /> Тобі вдалось все-таки скласти це фото.
+                <br />
+                Кроків: <span class="stepCount">0</span> кроків.
+                <br />
+                Час: <span class="timeCount">0</span> сек.<br />
+                <div>
+                    <button id = "knopka" type="button" onclick="window.location.reload(true);">Грати ще раз</button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            var images = [
+                { src: 'images/1_korpus.jpg', title: '1 корпус' },
+                { src: 'images/rector.jpg', title: 'Наш ректор' },
+                { src: 'images/logo.jpg', title: 'Логотип ІТ' },
+                { src: 'images/3_koropus1.jpg', title: '3 Корпус' },
+                { src: 'images/3_koropus2.jpg', title: '3 корпус' }
+            ];
+
+            $(function () {
+                var gridSize = $('#levelPanel :radio:checked').val();
+                imagePuzzle.startGame(images, gridSize);
+                $('#newPhoto').click(function () {
+                    var gridSize = $('#levelPanel :radio:checked').val();  // Take the updated gridSize from UI.
+                    imagePuzzle.startGame(images, gridSize);
+                });
+
+                $('#levelPanel :radio').change(function (e) {
+                    var gridSize = $(this).val();
+                    imagePuzzle.startGame(images, gridSize);
+                });
+            });
+            function rules() {
+                alert('Перерозташуйте частини зображення таким чином, щоб воно правильно формувало зображення. ');
+            }
+            function about() {
+                alert('Розроблено людиною на Землі (студент ІТ НУБіП). \nКонтакти: \nтел: 0680572715;\nпошта: roma.pletyk@gmail.com ');
+            }
+        </script>
+    </div>
+    
+</body>
+</html>
